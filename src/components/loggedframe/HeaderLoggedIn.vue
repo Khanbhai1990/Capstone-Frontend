@@ -29,7 +29,12 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>
-                <router-link :to="{ name: item.text}" tag="li" active-class="active">{{ item.text }}</router-link>
+                <div class="" v-if="item.link != 'home'">
+                  <router-link :to="{ name: item.link}" tag="li" active-class="active">{{ item.text }}</router-link>
+                </div>
+                <div class="">
+                  <a href="http://localhost:8080/"><li>{{ item.text }}</li></a>
+                </div>
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -79,16 +84,22 @@
           dialog: false,
           drawer: null,
           items: [
-                    { icon: 'contacts', text: 'Active' },
-                    { icon: 'history', text: 'My Challenges' },
-                    { icon: 'content_copy', text: 'Create' },
-                    { icon: 'settings', text: 'Settings' },
-                    { icon: 'chat_bubble', text: 'Send feedback' },
-                    { icon: 'help', text: 'Help' },
-                    { icon: 'phonelink', text: 'App downloads' },
-                    { icon: 'keyboard', text: 'LogOut' }
+                    { icon: 'contacts', text: 'Active', link: 'Active' },
+                    { icon: 'history', text: 'My Challenges', link: 'My Challenges' },
+                    { icon: 'content_copy', text: 'Create', link: 'Create'},
+                    { icon: 'settings', text: 'Settings', link: 'Settings' },
+                    { icon: 'chat_bubble', text: 'Send feedback', link: 'Send Feedback' },
+                    { icon: 'help', text: 'Help', link: 'Help' },
+                    { icon: 'phonelink', text: 'App downloads', link: 'App downloads' },
+                    { icon: 'keyboard', text: 'LogOut', link: 'home' }
                   ]
                 }
               }
     }
 </script>
+
+<style lang="css" scoped>
+    a { color:inherit;
+        text-decoration: none;
+      }
+</style>

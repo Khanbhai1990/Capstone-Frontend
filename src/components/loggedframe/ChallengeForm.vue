@@ -1,0 +1,78 @@
+<template lang="html">
+  <div class="">
+    <v-form v-model="valid" ref="form" lazy-validation>
+          <v-text-field
+            label="Challenge Name"
+            v-model="challName"
+            :rules="nameRules"
+            :counter="100"
+          ></v-text-field>
+          <v-checkbox
+            label="Are you sure?"
+            v-model="checkbox"
+            :rules="[v => !!v || 'You must agree to continue!']"
+            required
+          ></v-checkbox>
+
+          <v-btn
+            @click="challSubmit"
+            :disabled="!valid"
+          >
+            submit
+          </v-btn>
+          <v-btn @click="clear">clear</v-btn>
+     </v-form>
+  </div>
+
+</template>
+
+<script>
+    import axios from 'axios';
+    export default {
+        data (){
+          return {
+            valid: true,
+            challName: '',
+            nameRules: [
+              (v) => !!v || 'Input is required',
+              (v) => v && v.length <= 30 || 'Name must be less than 10 characters'
+            ],
+            // email: '',
+            // emailRules: [
+            //   (v) => !!v || 'E-mail is required',
+            //   (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+            // ],
+            checkbox: false
+          }
+        },
+        props: {
+            theChallenge: {
+                type: Number
+            }
+        },
+        methods: {
+          challSubmit () {
+            const formData = {
+              challenge: this.challName,
+              user_id: this.$store.state.user.id
+            }
+            if (this.$refs.form.validate()) {
+              // Native form submission is not yet supported
+              axios.post('/challenges', formData)
+                .then(res => {
+                  console.log("this is the response", res.data[res.data.length-1].id)
+                  this.theChallenge = res.data[res.data.length-1].id
+                  this.$emit('challNumberFilled', this.theChallenge);
+                })
+                .catch(error => console.log(error))
+            }
+          },
+          clear () {
+            this.$refs.form.reset()
+          }
+        }
+    }
+</script>
+
+<style lang="css">
+</style>

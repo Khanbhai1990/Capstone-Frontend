@@ -10,7 +10,6 @@
           <app-login></app-login>
           <app-signup></app-signup>
           <app-active></app-active>
-          <app-active></app-active>
           <app-my-challenges></app-my-challenges>
           <app-create></app-create>
 

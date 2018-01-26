@@ -25,7 +25,8 @@
               password: this.password,
               name: this.name
             }
-          axios.post('/users', formData)
+            console.log(formData)
+          axios.post('/auth/signup', formData)
             .then(res => console.log(res) )
             .catch(error => console.log(error))
         }

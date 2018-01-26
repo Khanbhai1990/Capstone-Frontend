@@ -21,7 +21,7 @@
       computed: {
         ...mapGetters({
           loggedIn:'navbarBoo'
-        })
+        }),
       },
         components: {
             appHeader: Header,
