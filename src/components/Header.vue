@@ -11,13 +11,6 @@
 
     <span class="hidden-xs-only white--text" style="padding:10px;">Project Ten </span>
   </v-toolbar-title>
-  <v-text-field
-    light
-    solo
-    prepend-icon="search"
-    placeholder="Search"
-    style="max-width: 500px; min-width: 128px"
-  ></v-text-field>
   <div class="d-flex align-center" style="margin-left: auto">
     <v-btn icon>
       <v-icon>apps</v-icon>
@@ -42,6 +35,11 @@
 <script>
     export default {
         methods: {
+          data () {
+            return {
+              routing: "test"
+            }
+          }
             // increment() {
             //     this.$emit('updated', 1);
             // },

@@ -7,6 +7,18 @@
             :rules="nameRules"
             :counter="100"
           ></v-text-field>
+          <v-text-field
+            label="Challenge Description"
+            v-model="challDes"
+            :rules="nameRules"
+            :counter="100"
+          ></v-text-field>
+          <v-text-field
+            label="Cover Photo"
+            v-model="coverPhoto"
+            :rules="coverRules"
+            :counter="100"
+          ></v-text-field>
           <v-checkbox
             label="Are you sure?"
             v-model="checkbox"
@@ -33,9 +45,15 @@
           return {
             valid: true,
             challName: '',
+            challDes: '',
+            coverPhoto: '',
             nameRules: [
               (v) => !!v || 'Input is required',
-              (v) => v && v.length <= 30 || 'Name must be less than 10 characters'
+              (v) => v && v.length <= 40 || 'Name must be less than 40 characters'
+            ],
+            coverRules: [
+              (v) => !!v || 'Input is required',
+              (v) => v && v.length <= 150  || 'Name must be less than 150 characters'
             ],
             // email: '',
             // emailRules: [
@@ -54,7 +72,9 @@
           challSubmit () {
             const formData = {
               challenge: this.challName,
-              user_id: this.$store.state.user.id
+              description: this.challDes,
+              user_id: this.$store.state.user.id,
+              paralax: this.coverPhoto
             }
             if (this.$refs.form.validate()) {
               // Native form submission is not yet supported

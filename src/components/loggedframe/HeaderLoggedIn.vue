@@ -47,13 +47,15 @@
                   <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
                   <span class="hidden-xs-only white--text" style="padding:10px;">Project Ten </span>
             </v-toolbar-title>
-            <v-text-field
-                    light
-                    solo
-                    prepend-icon="search"
-                    placeholder="Search"
-                    style="max-width: 500px; min-width: 128px">
-            </v-text-field>
+            <!-- <div v-if="$route.path == '/search' ">
+              <v-text-field
+                      light
+                      solo
+                      prepend-icon="search"
+                      placeholder="Search"
+                      style="max-width: 500px; min-width: 128px">
+              </v-text-field>
+            </div> -->
             <div class="d-flex align-center" style="margin-left: auto">
                 <v-btn icon>
                     <v-icon>apps</v-icon>
@@ -84,14 +86,15 @@
           dialog: false,
           drawer: null,
           items: [
-                    { icon: 'contacts', text: 'Active', link: 'Active' },
+                    { icon: 'explore', text: 'Explore', link: 'Search' },
+                    { icon: 'lightbulb_outline', text: 'Active', link: 'Active' },
                     { icon: 'history', text: 'My Challenges', link: 'My Challenges' },
                     { icon: 'content_copy', text: 'Create', link: 'Create'},
                     { icon: 'settings', text: 'Settings', link: 'Settings' },
                     { icon: 'chat_bubble', text: 'Send feedback', link: 'Send Feedback' },
                     { icon: 'help', text: 'Help', link: 'Help' },
                     { icon: 'phonelink', text: 'App downloads', link: 'App downloads' },
-                    { icon: 'keyboard', text: 'LogOut', link: 'home' }
+                    { icon: 'remove_circle', text: 'LogOut', link: 'home' }
                   ]
                 }
               }

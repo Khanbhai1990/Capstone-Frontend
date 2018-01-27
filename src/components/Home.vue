@@ -9,6 +9,7 @@
           <app-create v-else-if="loginIn == 6"></app-create> -->
           <app-login></app-login>
           <app-signup></app-signup>
+          <app-search></app-search>
           <app-active></app-active>
           <app-my-challenges></app-my-challenges>
           <app-create></app-create>
@@ -20,6 +21,7 @@
 <script>
     import Login from './pre-login/Login';
     import Signup from './pre-login/Signup';
+    import Search from './loggedframe/Search';
     import Active from './loggedframe/Active';
     import MyChallenges from './loggedframe/MyChallenges';
     import Create from './loggedframe/Create';
@@ -32,6 +34,7 @@ export default {
   components: {
       appLogin: Login,
       appSignup: Signup,
+      appSearch: Search,
       appActive: Active,
       appMyChallenges: MyChallenges,
       appCreate: Create

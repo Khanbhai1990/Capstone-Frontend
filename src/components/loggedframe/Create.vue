@@ -12,6 +12,12 @@
         <h2>Day {{ page }} </h2>
         <v-form v-model="valid" ref="form" lazy-validation>
               <v-text-field
+                name="instructions"
+                label="Instructions of the Day"
+                v-model="instructions"
+                multi-line
+              ></v-text-field>
+              <v-text-field
                 label="Youtube"
                 v-model="youtube"
                 :rules="nameRules"
@@ -60,9 +66,14 @@ export default {
         youtube: '',
         soundCloud: '',
         image: '',
+        instructions: '',
         nameRules: [
           (v) => !!v || 'Input is required',
-          (v) => v && v.length <= 150|| 'Name must be less than 10 characters'
+          (v) => v && v.length <= 150|| 'Name must be less than 150 characters'
+        ],
+        textRules: [
+          (v) => !!v || 'Input is required',
+          (v) => v && v.length <= 1000|| 'Name must be less than 1000 characters'
         ],
         email: '',
         emailRules: [
@@ -79,7 +90,8 @@ export default {
           day: this.page,
           video: this.youtube,
           audio: this.soundCloud,
-          image: this.image
+          image: this.image,
+          instructions: this.instructions
         }
         if (this.$refs.form.validate()) {
           // Native form submission is not yet supported

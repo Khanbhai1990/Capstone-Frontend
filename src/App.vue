@@ -4,8 +4,9 @@
         <app-header-loggedin v-if="loggedIn"></app-header-loggedin>
         <app-header v-else></app-header>
     </v-toolbar>
-
+    <transition name="slide-fade">
     <router-view></router-view>
+  </transition>
 
     <v-footer fixed class="pa-2 cyan darken-4"><app-footer></app-footer></v-footer>
     </v-content>
