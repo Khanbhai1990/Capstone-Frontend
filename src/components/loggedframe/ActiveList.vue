@@ -2,7 +2,7 @@
   <div class="">
       <v-app id="inspire">
         <div v-if="challenges.length">
-          <h1>My Challenges</h1>
+          <h1>Active List Tab</h1>
           <div v-for="chall in challenges">
             <v-layout class="mb-4 mt-4" >
               <v-flex xs12 sm6 offset-sm2>
@@ -11,13 +11,14 @@
                   </v-card-media>
                   <v-card-title primary-title>
                     <div>
-                      <h3 class="headline mb-0">{{ chall.challenge }}</h3>
+                      <h3 class="headline mb-0">{{ chall.challenge}}</h3>
                       <div>{{ chall.description }}</div>
                     </div>
                   </v-card-title>
                   <v-card-actions>
-                    <v-btn flat color="orange">Edit</v-btn>
-                    <v-btn flat color="orange">Delete</v-btn>
+                    <v-btn flat color="orange">Deactivate
+                    </v-btn>
+                    <router-link :to="`active/${chall.id}/${chall.challenge_id}/1`"><v-btn flat color="orange">Explore</v-btn></router-link>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -25,7 +26,7 @@
             </div>
         </div>
         <div v-else>
-          <h1>There Are No Challenges</h1>
+          <h1>There Are No Active Challenges</h1>
         </div>
       </v-app>
   </div>
@@ -42,7 +43,7 @@ export default {
   computed: {
   },
   created () {
-    axios.get(`http://localhost:8000/challenges/mychallenges/${this.$store.state.user.id}`)
+    axios.get(`http://localhost:8000/active_challenges/user_chall/${this.$store.state.user.id}`)
       .then(res => {
         this.challenges = res.data
         console.log(res.data)

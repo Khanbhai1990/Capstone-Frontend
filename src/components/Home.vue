@@ -10,7 +10,8 @@
           <app-login></app-login>
           <app-signup></app-signup>
           <app-search></app-search>
-          <app-active></app-active>
+          <app-active-list></app-active-list>
+          <active-list></active-list>
           <app-my-challenges></app-my-challenges>
           <app-create></app-create>
 
@@ -22,7 +23,8 @@
     import Login from './pre-login/Login';
     import Signup from './pre-login/Signup';
     import Search from './loggedframe/Search';
-    import Active from './loggedframe/Active';
+    import ActiveList from './loggedframe/ActiveList';
+    import ActiveList from './loggedframe/Active';
     import MyChallenges from './loggedframe/MyChallenges';
     import Create from './loggedframe/Create';
 export default {
@@ -35,7 +37,7 @@ export default {
       appLogin: Login,
       appSignup: Signup,
       appSearch: Search,
-      appActive: Active,
+      appActiveList: ActiveList,
       appMyChallenges: MyChallenges,
       appCreate: Create
   }

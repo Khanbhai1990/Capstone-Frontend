@@ -55,7 +55,7 @@
               error(err) {
                 this.errMsg = true
               },
-              redirect: { name: redirect ? redirect.from.name : 'Active' }
+              redirect: { name: redirect ? redirect.from.name : 'ActiveList' }
               })
           }
       }

@@ -4,6 +4,8 @@ import { store } from './store/store'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 import Vuetify from 'vuetify'
+import VueYouTubeEmbed from 'vue-youtube-embed'
+
 
 import router from './router'
 
@@ -13,6 +15,8 @@ import '../node_modules/vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify);
 
 Vue.use(VueAxios, axios)
+
+Vue.use(VueYouTubeEmbed)
 
 Vue.axios.defaults.baseURL = 'http://localhost:8000'
 

@@ -30,7 +30,7 @@
             <v-list-tile-content>
               <v-list-tile-title>
                 <div class="" v-if="item.link != 'home'">
-                  <router-link :to="{ name: item.link}" tag="li" active-class="active">{{ item.text }}</router-link>
+                  <router-link :to="{ name: item.link}" tag="li">{{ item.text }}</router-link>
                 </div>
                 <div class="">
                   <a href="http://localhost:8080/"><li>{{ item.text }}</li></a>
@@ -87,13 +87,13 @@
           drawer: null,
           items: [
                     { icon: 'explore', text: 'Explore', link: 'Search' },
-                    { icon: 'lightbulb_outline', text: 'Active', link: 'Active' },
+                    { icon: 'lightbulb_outline', text: 'Active List', link: 'ActiveList' },
                     { icon: 'history', text: 'My Challenges', link: 'My Challenges' },
                     { icon: 'content_copy', text: 'Create', link: 'Create'},
-                    { icon: 'settings', text: 'Settings', link: 'Settings' },
-                    { icon: 'chat_bubble', text: 'Send feedback', link: 'Send Feedback' },
-                    { icon: 'help', text: 'Help', link: 'Help' },
-                    { icon: 'phonelink', text: 'App downloads', link: 'App downloads' },
+                    { icon: 'settings', text: 'Settings', link: 'Active' },
+                    { icon: 'chat_bubble', text: 'Send feedback', link: 'Active' },
+                    { icon: 'help', text: 'Help', link: 'Active' },
+                    { icon: 'phonelink', text: 'App downloads', link: 'Active' },
                     { icon: 'remove_circle', text: 'LogOut', link: 'home' }
                   ]
                 }
