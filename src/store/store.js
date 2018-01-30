@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
         loginIn:3,
         loggedIn: true,
         token: null,
-        user: null
+        user: null,
+        diaryData:""
     },
   mutations: {
       login: (state, token) => {
@@ -21,6 +22,9 @@ export const store = new Vuex.Store({
         },
       userData: (state, user) => {
           state.user = user
+      },
+      diary_content: (state, payload)=>{
+         state.diaryData = payload
       }
 
   },
@@ -30,9 +34,15 @@ export const store = new Vuex.Store({
       },
       userData: ({ commit }, user)=> {
         commit('userData', user)
-      }
+      },
+      diary_content: ({ commit }, payload) => {
+        commit('diary_content', payload);
+    }
   },
-  getters
+  getters: {
+    ...getters
+
+   }
         // getters: {
         //     user (state) {
         //         return state.user

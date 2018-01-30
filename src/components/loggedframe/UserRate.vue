@@ -21,8 +21,7 @@
           </v-layout>
           <v-btn @click="submit" :disabled="!valid">submit</v-btn>
           <v-btn @click="clear">clear</v-btn>
-        </form>
-      </v-app>
+        </form>]
   </div>
 
 </template>

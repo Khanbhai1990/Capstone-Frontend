@@ -22,8 +22,8 @@
       </div> -->
     </div>
     <!-- <app-user-rate></app-user-rate> -->
-      <app-dialog class="box" @myrate="myRate = $event"></app-dialog>
   </v-app>
+  <app-dialog class="box" @myrate="myRate = $event"></app-dialog>
 
 
 

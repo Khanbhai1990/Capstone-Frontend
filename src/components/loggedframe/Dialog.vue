@@ -1,64 +1,53 @@
 <template lang="html">
   <div class="">
-    <v-app id="inspire">
-          <div>
-            <v-layout row justify-left>
-              <v-btn color="primary" dark @click.stop="dialog1 = true">Rate Your Day</v-btn>
-              <v-dialog v-model="dialog1" max-width="500px">
-                <v-card>
-                  <v-card-title>
-                    Dialog 1
-                  </v-card-title>
-                  <v-form v-model="valid" ref="form" lazy-validation>
-                      <v-card-text>
-                            <v-select
-                              v-bind:items="items"
-                              v-model="select"
-                              label="A Select List"
-                              item-value="text"
-                            ></v-select>
-                      </v-card-text>
-                      <v-card-actions>
-                          <v-btn color="primary" flat @click="rateSubmit">Submit</v-btn>
-                          <v-btn color="primary" flat @click.stop="dialog1=false">Close</v-btn>
-                      </v-card-actions>
-                  </v-form>
-                </v-card>
-              </v-dialog>
-            </v-layout>
-          </div>
-      </v-app>
-
+        <form v-model="valid" lazy-validation>
+          <v-layout row wrap>
+          <v-flex xs12 md6>
+            <h2>Rate Your Day</h2>
+            <v-radio-group v-model="rowOne" row>
+              <div v-for="number in numbers">
+                <div class="radioclass">
+                    <v-radio :label="number" :value="number" ></v-radio>
+                </div>
+              </div>
+            </v-radio-group>
+          </v-flex>
+          </v-layout>
+          <v-btn @click="rateSubmit" :disabled="!valid">submit</v-btn>
+          <v-btn @click="clear">clear</v-btn>
+        </form>
   </div>
 
 </template>
 
 <script>
+// import {mapGetters} from 'vuex';
 export default {
     data () {
         return {
-            dialog1: false,
-            select: null,
-            valid:true,
-            items: [
-               { text: '1' },
-               { text: '2' },
-               { text: '3' },
-               { text: '4' },
-               { text: '5' }
-            ]
+          rowOne: null,
+          valid: true,
+          numbers: ["1","2","3","4","5"],
+          data: null
         }
     },
     methods:{
       rateSubmit () {
-       this.select = Number(this.select)
-        this.dialog1 = false
-        this.$emit('myrate', this.select);
+        console.log("diary in dialog",  this.$store.state.diaryData)
+       this.rowOne = Number(this.rowOne)
+        this.$emit('myrate', this.rowOne);
+
+      },
+      clear () {
+        this.rowOne = null
 
       }
     }
   }
 </script>
 
-<style lang="css">
+<style lang="css" scoped="">
+  .radioclass{
+    width: 50px;
+  }
 </style>
