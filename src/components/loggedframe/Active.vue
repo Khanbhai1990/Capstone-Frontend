@@ -1,11 +1,12 @@
 <template lang="html">
-
+<div class="">
   <v-app id="inspire">
 
     <v-parallax :src="data[0].paralax" height="400"></v-parallax>
     <div class="text-xs-center">
       <v-pagination :length="10" v-model="page"></v-pagination>
-        <app-content :video="videoId" :audio="test" :instruct="data[0].instructions"></app-content>
+        <app-content :video="videoId" :audio="audioUrl" :instruct="data[0].instructions"></app-content>
+
     <!-- <h3>{{data[0].challenge}}</h3><br><br>
     <h3>Instructions</h3>
       <p>  {{ data[0].instructions }}</p>
@@ -20,27 +21,32 @@
 
       </div> -->
     </div>
-
+    <!-- <app-user-rate></app-user-rate> -->
+      <app-dialog class="box" @myrate="myRate = $event"></app-dialog>
   </v-app>
+
+
+
+</div>
 </template>
 
 <script>
 import axios from 'axios';
 import Content from './Content';
+import Dialog from './Dialog';
+// import UserRate from './UserRate';
 
 export default {
     data () {
         return {
           data: [],
+          myRate:5,
           active_id: this.$route.params.act_chall_id,
           chall_id: this.$route.params.chall_id,
           page: Number(this.$route.params.day),
           videoId: "",
-          audioUrl:"",
-          test: '<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/68276792&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>'
+          audioUrl:""
         }
-    },
-    methods: {
     },
     watch: {
       page: function(){
@@ -58,24 +64,21 @@ export default {
           this.data = res.data
           this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
           this.audioUrl = res.data[0].audio
-          console.log("this is data from Active", res.data)
         })
         .catch(error => console.log(error))
-
 
       if (!this.$store.state.token) {
         this.$router.push('/')
       }
     },
     components: {
-        appContent: Content
+        appContent: Content,
+        appDialog: Dialog
+        // appUserRate: UserRate
     }
 }
 </script>
 
 <style lang="css" scoped>
-  .box{
-    height: 100px;
-    width: 39%;
-  }
+
 </style>
