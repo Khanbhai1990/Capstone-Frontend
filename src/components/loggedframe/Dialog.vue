@@ -7,12 +7,19 @@
             <v-radio-group v-model="rowOne" row>
               <div v-for="number in numbers">
                 <div class="radioclass">
-                    <v-radio :label="number" :value="number" ></v-radio>
+                    <v-radio :label="number" :value="number"></v-radio>
                 </div>
               </div>
             </v-radio-group>
           </v-flex>
           </v-layout>
+          <h3>{{ trackName.toUpperCase() }} {{ "tracker".toUpperCase() }}</h3>
+          <v-text-field
+            :label="'##'"
+            v-model="track"
+            :counter="10"
+            type="number"
+          ></v-text-field>
           <v-btn @click="rateSubmit" :disabled="!valid">submit</v-btn>
           <v-btn @click="clear">clear</v-btn>
         </form>
@@ -22,27 +29,44 @@
 
 <script>
 // import {mapGetters} from 'vuex';
+import axios from "axios"
 export default {
     data () {
         return {
           rowOne: null,
           valid: true,
           numbers: ["1","2","3","4","5"],
-          data: null
+          data: null,
+          track:null
         }
     },
+    props: ["trackName"],
     methods:{
       rateSubmit () {
-        console.log("diary in dialog",  this.$store.state.diaryData)
-       this.rowOne = Number(this.rowOne)
-        this.$emit('myrate', this.rowOne);
-
+          const formData = {
+            user_id: this.$store.state.user.id,
+            active_challenge_id: this.$route.params.act_chall_id,
+            diary: this.$store.state.diaryData,
+            day_input: this.$route.params.day,
+            self_rate: this.rowOne,
+            tracker: this.track
+          }
+          axios.post('/user_input', formData)
+            .then(res => {
+              console.log("this is the response from features", res)
+            })
+            .catch(error => console.log(error))
       },
       clear () {
         this.rowOne = null
 
       }
-    }
+       //  console.log("diary in dialog",  this.$store.state.diaryData)
+       // this.rowOne = Number(this.rowOne)
+        // this.$emit('myrate', this.rowOne);
+
+      }
+
   }
 </script>
 

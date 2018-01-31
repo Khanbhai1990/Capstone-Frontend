@@ -19,6 +19,12 @@
             :rules="coverRules"
             :counter="100"
           ></v-text-field>
+          <v-text-field
+            label="Tracker"
+            v-model="trackerName"
+            :rules="nameRules"
+            :counter="100"
+          ></v-text-field>
           <v-checkbox
             label="Are you sure?"
             v-model="checkbox"
@@ -47,6 +53,7 @@
             challName: '',
             challDes: '',
             coverPhoto: '',
+            trackerName:'',
             nameRules: [
               (v) => !!v || 'Input is required',
               (v) => v && v.length <= 40 || 'Name must be less than 40 characters'
@@ -74,7 +81,8 @@
               challenge: this.challName,
               description: this.challDes,
               user_id: this.$store.state.user.id,
-              paralax: this.coverPhoto
+              paralax: this.coverPhoto,
+              tracker_name: this.trackerName
             }
             if (this.$refs.form.validate()) {
               // Native form submission is not yet supported

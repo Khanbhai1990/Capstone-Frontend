@@ -6,24 +6,9 @@
     <div class="text-xs-center">
       <v-pagination :length="10" v-model="page"></v-pagination>
         <app-content :video="videoId" :audio="audioUrl" :instruct="data[0].instructions"></app-content>
-
-    <!-- <h3>{{data[0].challenge}}</h3><br><br>
-    <h3>Instructions</h3>
-      <p>  {{ data[0].instructions }}</p>
-
-      <h3>Video of the Day</h3>
-      <youtube :video-id="videoId"></youtube>
-      <h3>Audio of the Day</h3>
-
-        <span v-html="test"></span>
-
-      <div class="box">
-
-      </div> -->
     </div>
-    <!-- <app-user-rate></app-user-rate> -->
   </v-app>
-  <app-dialog class="box" @myrate="myRate = $event"></app-dialog>
+  <app-dialog class="box" @myrate="myRate = $event" :trackName="data[0].tracker_name"></app-dialog>
 
 
 
@@ -54,6 +39,7 @@ export default {
           .then(res => {
             this.data = res.data
             this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
+
           })
           .catch(error => console.log(error))
       }
@@ -64,6 +50,7 @@ export default {
           this.data = res.data
           this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
           this.audioUrl = res.data[0].audio
+        
         })
         .catch(error => console.log(error))
 

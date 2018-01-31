@@ -5,12 +5,16 @@ import VueAxios from 'vue-axios'
 import axios from 'axios'
 import Vuetify from 'vuetify'
 import VueYouTubeEmbed from 'vue-youtube-embed'
+import Chartkick from 'chartkick'
+import VueChartkick from 'vue-chartkick'
 
 
+Vue.use(VueChartkick, { Chartkick })
 
 import router from './router'
 
 import '../node_modules/vuetify/dist/vuetify.min.css'
+
 
 
 Vue.use(Vuetify);

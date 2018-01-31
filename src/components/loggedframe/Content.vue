@@ -48,7 +48,7 @@
                   </v-stepper-content>
                   <v-stepper-step step="6">Your Progress</v-stepper-step>
                   <v-stepper-content step="6">
-                        <v-card color="blue lighten-4" class="mb-5" height="500px"><app-graphs :totalData="totalData"></app-graphs></v-card>
+                        <v-card color="blue lighten-4" class="mb-5" height="500px"><app-graphs :ladder="e6"></app-graphs></v-card>
                         <v-btn color="primary" @click.native="e6 = 1">Next</v-btn>
                   </v-stepper-content>
             </v-stepper>
@@ -65,7 +65,6 @@ export default {
     return {
      e6: 1,
      friendsData: [],
-     totalData: [],
      diary:""
     }
   },
@@ -88,7 +87,6 @@ export default {
              this.friendsData = res.data.filter(user =>{
                 return user.name !== this.$store.state.user.name
              })
-             this.totalData = res.data
            })
            .catch(error => console.log(error))
 
