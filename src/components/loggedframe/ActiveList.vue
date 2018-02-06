@@ -2,7 +2,7 @@
   <div class="">
       <v-app id="inspire">
         <div v-if="challenges.length">
-          <h1>Active List Tab</h1>
+          <h1>Active List</h1>
           <div v-for="chall in challenges">
             <v-layout class="mb-4 mt-4" >
               <v-flex xs12 sm6 offset-sm2>
@@ -16,9 +16,8 @@
                     </div>
                   </v-card-title>
                   <v-card-actions>
-                    <v-btn flat color="orange">Deactivate
-                    </v-btn>
-                    <router-link :to="`active/${chall.id}/${chall.challenge_id}/1`"><v-btn flat color="orange">Explore</v-btn></router-link>
+                    <router-link :to="`active/${chall.id}/${chall.challenge_id}/1`" style="text-decoration: none;"><v-btn flat color="green">Explore</v-btn></router-link>
+                    <v-btn flat color="orange" @click="inactive(chall.id)">Deactivate</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -26,7 +25,7 @@
             </div>
         </div>
         <div v-else>
-          <h1>There Are No Active Challenges</h1>
+          <h1>There Are No Active Challenges :'(</h1>
         </div>
       </v-app>
   </div>
@@ -37,22 +36,48 @@ import axios from 'axios';
 export default {
   data () {
     return {
-      challenges: []
+      challenges:[],
+      updated:0
     }
   },
-  computed: {
+  methods: {
+    inactive(id){
+      const formData = {
+        active: false,
+      }
+        axios.patch(`http://localhost:8000/active_challenges/${id}`, formData)
+          .then(res=>{
+            console.log("patch works", res.data)
+            //updated triggers "watch" which inturn re render the component
+            this.updated++
+          })
+    }
+  },
+  watch: {
+    updated: function (val){
+      axios.get(`http://localhost:8000/active_challenges/user_chall/${this.$store.state.user.id}`)
+        .then(res => {
+          this.challenges = res.data.filter(challenge =>{
+            return challenge.active === true
+          })
+          // console.log("this is data from active challenges", res.data)
+        })
+        .catch(error => console.log(error))
+    }
   },
   created () {
     axios.get(`http://localhost:8000/active_challenges/user_chall/${this.$store.state.user.id}`)
       .then(res => {
-        this.challenges = res.data
-        console.log(res.data)
+        this.challenges = res.data.filter(challenge =>{
+          return challenge.active === true
+        })
+        // console.log("this is data from active challenges", res.data)
       })
       .catch(error => console.log(error))
 
-    if (!this.$store.state.token) {
-      this.$router.push('/')
-    }
+      if (!this.$auth.check()) {
+        this.$router.push('/')
+      }
   }
 }
 </script>

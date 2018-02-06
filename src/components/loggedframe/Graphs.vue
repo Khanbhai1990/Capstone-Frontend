@@ -16,7 +16,7 @@ export default {
   watch: {
     ladder: function (){
 
-          if (this.ladder ===2 && this.once ===0 ){
+          if (this.ladder ===6 && this.once ===0 ){
             this.once++
             axios.get(`http://localhost:8000/user_rate/ranking/${this.$route.params.act_chall_id}`)
               .then(res => {
@@ -40,6 +40,11 @@ export default {
 
     }
 
+  },
+  created(){
+    if (!this.$auth.check()) {
+      this.$router.push('/')
+    }
   }
 
 }

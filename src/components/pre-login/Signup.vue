@@ -1,9 +1,9 @@
 <template lang="html">
   <v-layout row wrap>
     <v-flex d-flex xs12 sm6 md6>
-        <v-card color="green" dark>
+        <v-card color="" dark>
           <v-card-title primary class="title">About Us</v-card-title>
-          <hr color="blue">
+          
           <v-card-text>
             <h3>Project Ten is an application that provides the user a template to create challenges
             lasting ten days. The challenges can then be shared with the user’s friends(online or in real life)

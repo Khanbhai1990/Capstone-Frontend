@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap align-center>
+  <v-layout row wrap align-center color="blue lighten-2">
   <v-flex xs12>
     <div class="white--text ml-3">
       Capstone Project

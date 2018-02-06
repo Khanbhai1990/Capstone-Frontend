@@ -1,12 +1,10 @@
 <template lang="html">
   <div class="">
-    <h1>Create</h1>
     <v-app id="inspire">
         <div class="text-xs-center">
             <v-pagination :length="10" v-model="page"></v-pagination>
         </div>
-        <div v-if="page == 1">
-          <h2>Challenge</h2>
+        <div>
           <app-challenge-form  @challNumberFilled="challenge_id = $event"></app-challenge-form>
         </div>
         <h2>Day {{ page }} </h2>
@@ -18,18 +16,18 @@
                 multi-line
               ></v-text-field>
               <v-text-field
-                label="Youtube"
+                label="Youtube (http link with video ID only)"
                 v-model="youtube"
                 :rules="nameRules"
                 :counter="100"
               ></v-text-field>
               <v-text-field
-                label="SoundCloud"
+                label="SoundCloud (only embedded code with iframe tags)"
                 v-model="soundCloud"
-                :rules="nameRules"
+                :rules="textRules"
               ></v-text-field>
               <v-text-field
-                label="Image"
+                label="Meme of the Day (img)"
                 v-model="image"
                 :rules="nameRules"
               ></v-text-field>
@@ -41,12 +39,13 @@
               ></v-checkbox>
 
               <v-btn
+                color="blue"
                 @click="daySubmit"
                 :disabled="!valid"
               >
                 submit
               </v-btn>
-              <v-btn @click="clear">clear</v-btn>
+              <v-btn color="yellow" @click="clear">clear</v-btn>
          </v-form>
 
     </v-app>
@@ -60,30 +59,34 @@ import axios from 'axios';
 export default {
     data (){
       return {
-        challenge_id: -1,
+        challenge_id:null,
         page: 1,
         valid: true,
         youtube: '',
         soundCloud: '',
         image: '',
         instructions: '',
+
         nameRules: [
           (v) => !!v || 'Input is required',
-          (v) => v && v.length <= 150|| 'Name must be less than 150 characters'
+          (v) => v && v.length <= 2000|| 'Name must be less than 150 characters'
         ],
         textRules: [
           (v) => !!v || 'Input is required',
-          (v) => v && v.length <= 1000|| 'Name must be less than 1000 characters'
+          (v) => v && v.length <= 2000|| 'Name must be less than 1000 characters'
         ],
         email: '',
         emailRules: [
           (v) => !!v || 'E-mail is required',
           (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
         ],
-        checkbox: false
+        checkbox: false,
+        trackerObj: {},
+        trackerId:null
       }
     },
     methods: {
+
       daySubmit () {
         const formData = {
           challenge_id: this.challenge_id,
@@ -95,23 +98,39 @@ export default {
         }
         if (this.$refs.form.validate()) {
           // Native form submission is not yet supported
-          axios.post('/features', formData)
-            .then(res => {
-              console.log("this is the response from features", res)
-            })
-            .catch(error => console.log(error))
+          if(this.trackerObj[this.page.toString()]){
+            axios.patch(`/features/${this.trackerObj[this.page.toString()]}`, formData)
+              .then(res =>{
+                console.log("this is patch", res)
+                this.page++
+              })
+              .catch(error => console.log(error))
+          } else{
+            axios.post('/features', formData)
+              .then(res => {
+                console.log("this is the response from features", res, this.page)
+                this.trackerObj[this.page.toString()] = res.data[this.page-1].id
+                this.page++
+                console.log("this is the obj", this.trackerObj)
+              })
+              .catch(error => console.log(error))
+          }
+
+
+
+
         }
         this.$refs.form.reset()
-        this.page++
+
       },
       clear () {
         this.$refs.form.reset()
       }
     },
       created () {
-          if (!this.$store.state.token) {
-            this.$router.push('/')
-          }
+        if (!this.$auth.check()) {
+          this.$router.push('/')
+        }
       },
       components: {
           appChallengeForm: ChallengeForm

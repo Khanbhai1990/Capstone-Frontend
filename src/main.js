@@ -28,6 +28,15 @@ Vue.axios.defaults.baseURL = 'http://localhost:8000'
 Vue.config.productionTip = false
 Vue.router = router
 
+// axios.interceptors.request.use(config => {
+//   console.log("this is request from interceptors", config)
+//   return config
+// })
+//
+// axios.interceptors.response.use(res => {
+//   console.log("this is response from interceptors", res)
+//   return res
+// })
 
 
 Vue.use(require('@websanova/vue-auth'), {

@@ -16,8 +16,8 @@
                     </div>
                   </v-card-title>
                   <v-card-actions>
-                    <v-btn flat color="orange">Edit</v-btn>
-                    <v-btn flat color="orange">Delete</v-btn>
+                    <v-btn flat color="orange" disabled >Edit</v-btn>
+                    <v-btn flat color="red"  @click="del(chall.id)">Delete</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div v-else>
-          <h1>There Are No Challenges</h1>
+          <h1>There Are No Challenges :'(</h1>
         </div>
       </v-app>
   </div>
@@ -36,10 +36,32 @@ import axios from 'axios';
 export default {
   data () {
     return {
-      challenges: []
+      challenges: [],
+      updated:0
     }
   },
   computed: {
+  },
+  methods: {
+    del(id){
+        axios.delete(`http://localhost:8000/challenges/${id}`)
+          .then(res=>{
+            console.log("delete works", res.data)
+            //updated triggers "watch" which inturn re render the component
+            this.updated++
+          })
+        this.$router.push('/my_challenges')
+    }
+  },
+  watch: {
+    updated: function (val){
+      axios.get(`http://localhost:8000/challenges/mychallenges/${this.$store.state.user.id}`)
+        .then(res => {
+          this.challenges = res.data
+          console.log(res.data)
+        })
+        .catch(error => console.log(error))
+    }
   },
   created () {
     axios.get(`http://localhost:8000/challenges/mychallenges/${this.$store.state.user.id}`)
@@ -49,9 +71,9 @@ export default {
       })
       .catch(error => console.log(error))
 
-    if (!this.$store.state.token) {
-      this.$router.push('/')
-    }
+      if (!this.$auth.check()) {
+        this.$router.push('/')
+      }
   }
 }
 </script>

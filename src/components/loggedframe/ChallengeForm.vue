@@ -1,45 +1,49 @@
 <template lang="html">
   <div class="">
-    <v-form v-model="valid" ref="form" lazy-validation>
-          <v-text-field
-            label="Challenge Name"
-            v-model="challName"
-            :rules="nameRules"
-            :counter="100"
-          ></v-text-field>
-          <v-text-field
-            label="Challenge Description"
-            v-model="challDes"
-            :rules="nameRules"
-            :counter="100"
-          ></v-text-field>
-          <v-text-field
-            label="Cover Photo"
-            v-model="coverPhoto"
-            :rules="coverRules"
-            :counter="100"
-          ></v-text-field>
-          <v-text-field
-            label="Tracker"
-            v-model="trackerName"
-            :rules="nameRules"
-            :counter="100"
-          ></v-text-field>
-          <v-checkbox
-            label="Are you sure?"
-            v-model="checkbox"
-            :rules="[v => !!v || 'You must agree to continue!']"
-            required
-          ></v-checkbox>
+    <h2>Challenge {{ title }}</h2>
+    <div v-if="!title">
+        <v-form v-model="valid" ref="form" lazy-validation>
+            <v-text-field
+              label="Challenge Name"
+              v-model="challName"
+              :rules="nameRules"
+              :counter="100"
+            ></v-text-field>
+            <v-text-field
+              label="Challenge Description"
+              v-model="challDes"
+              :rules="nameRules"
+              :counter="100"
+            ></v-text-field>
+            <v-text-field
+              label="Cover Photo"
+              v-model="coverPhoto"
+              :rules="coverRules"
+              :counter="100"
+            ></v-text-field>
+            <v-text-field
+              label="Tracker"
+              v-model="trackerName"
+              :rules="nameRules"
+              :counter="100"
+            ></v-text-field>
+            <v-checkbox
+              label="Are you sure?"
+              v-model="checkbox"
+              :rules="[v => !!v || 'You must agree to continue!']"
+              required
+            ></v-checkbox>
 
-          <v-btn
-            @click="challSubmit"
-            :disabled="!valid"
-          >
-            submit
-          </v-btn>
-          <v-btn @click="clear">clear</v-btn>
-     </v-form>
+            <v-btn
+              color="blue"
+              @click="challSubmit"
+              :disabled="!valid"
+            >
+              submit
+            </v-btn>
+            <v-btn color="yellow" @click="clear">clear</v-btn>
+          </v-form>
+      </div>
   </div>
 
 </template>
@@ -50,6 +54,8 @@
         data (){
           return {
             valid: true,
+            hide:false,
+            title: "",
             challName: '',
             challDes: '',
             coverPhoto: '',
@@ -77,6 +83,8 @@
         },
         methods: {
           challSubmit () {
+            this.hide=true
+            this.title = this.challName
             const formData = {
               challenge: this.challName,
               description: this.challDes,
@@ -97,6 +105,11 @@
           },
           clear () {
             this.$refs.form.reset()
+          }
+        },
+        created  (){
+          if (!this.$auth.check()) {
+            this.$router.push('/')
           }
         }
     }

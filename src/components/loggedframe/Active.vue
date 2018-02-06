@@ -35,6 +35,7 @@ export default {
     },
     watch: {
       page: function(){
+        console.log("this is auth status", this.$auth.check())
         axios.get(`http://localhost:8000/active_challenges/complete/${this.$route.params.chall_id}/${this.page}`)
           .then(res => {
             this.data = res.data
@@ -50,11 +51,11 @@ export default {
           this.data = res.data
           this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
           this.audioUrl = res.data[0].audio
-        
+
         })
         .catch(error => console.log(error))
 
-      if (!this.$store.state.token) {
+      if (!this.$auth.check()) {
         this.$router.push('/')
       }
     },

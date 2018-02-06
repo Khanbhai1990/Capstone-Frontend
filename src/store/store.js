@@ -11,9 +11,9 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
         loginIn:3,
-        loggedIn: true,
-        token: null,
-        user: null,
+        loggedIn: !!localStorage.getItem("token"),
+        token: localStorage.getItem("token"),
+        user: JSON.parse(localStorage.getItem("userData")),
         diaryData:""
     },
   mutations: {

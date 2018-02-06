@@ -1,6 +1,6 @@
 <template>
-    <v-content>
-    <v-toolbar color="cyan lighten-3" app absolute clipped-left>
+    <v-content color="blue ligthen-4">
+    <v-toolbar color="cyan lighten-1" app absolute clipped-left>
         <app-header-loggedin v-if="loggedIn"></app-header-loggedin>
         <app-header v-else></app-header>
     </v-toolbar>
@@ -8,7 +8,7 @@
     <router-view></router-view>
   </transition>
 
-    <v-footer class="pa-2 cyan darken-4"><app-footer></app-footer></v-footer>
+    <v-footer class="blue ligthen-4"><app-footer></app-footer></v-footer>
     </v-content>
 </template>
 

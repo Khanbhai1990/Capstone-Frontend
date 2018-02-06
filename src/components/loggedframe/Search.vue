@@ -1,5 +1,7 @@
 <template lang="html">
   <div class="">
+    <v-layout row justify-center>
+    </v-layout>
     <v-app id="inspire">
         <v-layout row>
           <v-flex xs12 sm6 offset-sm0>
@@ -21,7 +23,7 @@
               </v-toolbar>
               <v-list two-line>
                 <template v-for="(challenge, index) in filterArr">
-                  <v-list-tile avatar ripple v-bind:key="index" @click="">
+                  <v-list-tile avatar ripple v-bind:key="index" @click="logIt(challenge.id)" >
                     <v-list-tile-content>
                       <v-list-tile-title>{{ challenge.challenge }}</v-list-tile-title>
                       <!-- <v-list-tile-sub-title class="grey--text text--darken-4">{{ challenge.description }}</v-list-tile-sub-title> -->
@@ -39,6 +41,37 @@
               </v-list>
             </v-card>
           </v-flex>
+          <div v-if="dialog">
+              <v-card>
+                <v-card-title>
+                  <span class="headline">User Profile</span>
+                </v-card-title>
+                <v-card-text>
+                      <v-container grid-list-md>
+                          <v-layout wrap>
+                              <v-flex xs12 sm12>
+                                  <v-select
+                                  label="Friends"
+                                  v-model="info"
+                                  multiple
+                                  autocomplete
+                                  chips
+                                  :items="usersData"
+                                  item-text="name"
+                                  item-value="id"
+                                  ></v-select>
+                              </v-flex>
+                          </v-layout>
+                      </v-container>
+                    <small>*indicates required field</small>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary"  @click.native="funcSelected">Activate</v-btn>
+                  <v-btn color="yellow"  @click.native="dialog = false">Close</v-btn>
+                </v-card-actions>
+              </v-card>
+          </div>
         </v-layout>
     </v-app>
   </div>
@@ -50,9 +83,37 @@ export default {
   data () {
     return {
       challenges: [],
+      info:"",
+      usersData:[],
+      dialog: false,
       // challengesNames:[],
-      filterText:''
+      filterText:'',
+      selectedChallId:""
     }
+  },
+  methods: {
+      logIt(id){
+        this.selectedChallId = id
+        this.dialog = !this.dialog
+      },
+      funcSelected () {
+        console.log("funcSelected works!")
+        const formData = {
+          userOne_id: this.$store.state.user.id,
+          userTwo_id: this.info[0],
+          userThree_id: this.info[1],
+          challenge_id: this.selectedChallId,
+          active: true
+        }
+
+          axios.post('/active_challenges', formData)
+            .then(res => {
+              console.log("this is the response from features", res)
+            })
+            .catch(error => console.log(error))
+
+          this.dialog=!this.dialog
+      }
   },
   computed: {
     filterArr(){
@@ -71,9 +132,19 @@ export default {
       })
       .catch(error => console.log(error))
 
-    if (!this.$store.state.token) {
-      this.$router.push('/')
-    }
+    axios.get('http://localhost:8000/auth/users')
+      .then(res => {
+        this.usersData = res.data.filter(user =>{
+          return user.id !== this.$store.state.user.id
+
+        })
+
+      })
+      .catch(error => console.log(error))
+
+      if (!this.$auth.check()) {
+        this.$router.push('/')
+      }
   }
 }
 </script>

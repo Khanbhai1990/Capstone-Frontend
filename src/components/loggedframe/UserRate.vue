@@ -3,7 +3,7 @@
         <form v-model="valid" lazy-validation>
           <v-layout row wrap>
           <v-flex xs12 md6>
-            <v-subheader>{{ friendsData[0].name }}</v-subheader>
+            <h3>{{ friendsData[0].name.toUpperCase() }}</h3>
             <v-radio-group v-model="rowOne" column>
               <div v-for="number in numbers">
                     <v-radio :label="number" :value="number" ></v-radio>
@@ -11,7 +11,7 @@
             </v-radio-group>
           </v-flex>
           <v-flex xs12 md6>
-            <v-subheader>{{ friendsData[1].name }}</v-subheader>
+            <h3>{{ friendsData[1].name.toUpperCase() }}</h3>
             <v-radio-group v-model="rowTwo" column>
                 <div v-for="number in numbers">
                     <v-radio :label="number" :value="number" ></v-radio>
@@ -19,14 +19,15 @@
             </v-radio-group>
           </v-flex>
           </v-layout>
-          <v-btn @click="submit" :disabled="!valid">submit</v-btn>
-          <v-btn @click="clear">clear</v-btn>
-        </form>]
+          <v-btn @click="submit" color="primary" :disabled="!valid">submit</v-btn>
+          <v-btn @click="clear" color="yellow" >clear</v-btn>
+        </form>
   </div>
 
 </template>
 
 <script>
+
 import axios from 'axios';
 export default {
       data () {
@@ -78,9 +79,15 @@ export default {
           this.rowTwo = null
 
         }
+      },
+      created () {
+        if (!this.$auth.check()) {
+          this.$router.push('/')
+        }
       }
 }
 </script>
 
 <style lang="css">
+
 </style>

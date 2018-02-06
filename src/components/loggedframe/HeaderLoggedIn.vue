@@ -29,7 +29,7 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>
-                <div class="" v-if="item.link != 'home'">
+                <div class="" v-if="item.link != 'home'" :click="logout">
                   <router-link :to="{ name: item.link}" tag="li">{{ item.text }}</router-link>
                 </div>
                 <div class="">
@@ -45,7 +45,7 @@
           <v-toolbar color="blue darken-3" darkapp clipped-left fixed>
             <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
                   <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-                  <span class="hidden-xs-only white--text" style="padding:10px;">Project Ten </span>
+                  <span class="hidden-xs-only white--text" style="padding:10px;">ChallengeUP</span>
             </v-toolbar-title>
             <!-- <div v-if="$route.path == '/search' ">
               <v-text-field
@@ -93,11 +93,18 @@
                     { icon: 'settings', text: 'Settings', link: 'Active' },
                     { icon: 'chat_bubble', text: 'Send feedback', link: 'Active' },
                     { icon: 'help', text: 'Help', link: 'Active' },
-                    { icon: 'phonelink', text: 'App downloads', link: 'Active' },
                     { icon: 'remove_circle', text: 'LogOut', link: 'home' }
                   ]
                 }
-              }
+         },
+        computed: {
+          logout(){
+            localStorage.removeItem("token");
+            localStorage.removeItem("userData");
+          }
+        }
+
+
     }
 </script>
 

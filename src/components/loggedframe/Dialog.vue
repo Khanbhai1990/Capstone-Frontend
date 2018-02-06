@@ -20,8 +20,8 @@
             :counter="10"
             type="number"
           ></v-text-field>
-          <v-btn @click="rateSubmit" :disabled="!valid">submit</v-btn>
-          <v-btn @click="clear">clear</v-btn>
+          <v-btn @click="rateSubmit" color="primary" :disabled="!valid">submit</v-btn>
+          <v-btn @click="clear" color="yellow">clear</v-btn>
         </form>
   </div>
 
@@ -65,6 +65,11 @@ export default {
        // this.rowOne = Number(this.rowOne)
         // this.$emit('myrate', this.rowOne);
 
+      },
+      created (){
+        if (!this.$auth.check()) {
+          this.$router.push('/')
+        }
       }
 
   }

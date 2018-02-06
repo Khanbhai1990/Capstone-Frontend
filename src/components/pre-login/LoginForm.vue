@@ -9,6 +9,7 @@
         <v-text-field
           label="Password"
           v-model="password"
+          type="password"
           required
         ></v-text-field>
     <v-btn @click="onSubmit">Login</v-btn>
@@ -46,6 +47,8 @@
               success(data) {
                   console.log('data', data)
                   this.$auth.token(null, data.data.token)
+                  localStorage.setItem('token', data.data.token)
+                  localStorage.setItem('userData', JSON.stringify(data.data.user[0]))
                   this.$auth.user(data.data.user[0])
                   console.log('user', this.$auth.user())
                   // console.log("this is the email", $auth.user().email)
