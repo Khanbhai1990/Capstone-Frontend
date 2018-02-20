@@ -29,6 +29,7 @@
           axios.post('/auth/signup', formData)
             .then(res => console.log(res) )
             .catch(error => console.log(error))
+          this.$router.push('/')
         }
     }
   }

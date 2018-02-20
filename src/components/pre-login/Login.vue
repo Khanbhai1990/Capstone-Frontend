@@ -4,7 +4,7 @@
         <v-card color="" dark>
           <v-card-title primary class="title">ChallengeUP</v-card-title>
           <v-card-text>
-            Project Ten is an application that provides the user a template to create challenges
+            ChallengeUP! is an application that provides the user a template to create challenges
             lasting ten days. The challenges can then be shared with the user’s friends(online or in real life)
             and family. The challenges could be related to health and well being, or something trivial (like binge watching all Marvel movies for ten days straight!).
             It’s completely up to users to come up with the content; sky’s the limit.
