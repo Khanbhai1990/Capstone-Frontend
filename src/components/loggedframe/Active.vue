@@ -29,18 +29,22 @@ export default {
           active_id: this.$route.params.act_chall_id,
           chall_id: this.$route.params.chall_id,
           page: Number(this.$route.params.day),
+          days:[0,86400,86400*2,86400*3,86400*4,86400*5,86400*6,86400*7,86400*8,86400*9],
+          fil:null,
           videoId: "",
           audioUrl:""
         }
     },
     watch: {
       page: function(){
-        console.log("this is auth status", this.$auth.check())
+        if(this.page>this.fil){
+          alert(`content for day ${this.page} will be available when the time is right :-) (access to the next day will be permitted after 24 hours)`)
+          this.page = this.fil
+        }
         axios.get(`http://localhost:8000/active_challenges/complete/${this.$route.params.chall_id}/${this.page}`)
           .then(res => {
             this.data = res.data
             this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
-
           })
           .catch(error => console.log(error))
       }
@@ -48,9 +52,11 @@ export default {
     created () {
       axios.get(`http://localhost:8000/active_challenges/complete/${this.$route.params.chall_id}/${this.page}`)
         .then(res => {
+          console.log("this is active", res.data)
           this.data = res.data
           this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
           this.audioUrl = res.data[0].audio
+          this.fil = 10 - this.days.filter(num => num > Date.now().toString().slice(0,10)-res.data[0].startTime).length;
 
         })
         .catch(error => console.log(error))

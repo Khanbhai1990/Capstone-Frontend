@@ -52,10 +52,11 @@
                               <v-flex xs12 sm12>
                                   <v-select
                                   label="Friends"
-                                  v-model="info"
+                                  v-model="friendsArr"
                                   multiple
                                   autocomplete
                                   chips
+                                  v-bind:disabled="friendsArr.length>=2"
                                   :items="usersData"
                                   item-text="name"
                                   item-value="id"
@@ -68,7 +69,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="primary"  @click.native="funcSelected">Activate</v-btn>
-                  <v-btn color="yellow"  @click.native="dialog = false">Close</v-btn>
+                  <v-btn color="yellow"  @click.native="funcClose">Close</v-btn>
                 </v-card-actions>
               </v-card>
           </div>
@@ -83,9 +84,9 @@ export default {
   data () {
     return {
       challenges: [],
-      info:"",
+      friendsArr:[],
       usersData:[],
-      dialog: false,
+      dialog:false,
       // challengesNames:[],
       filterText:'',
       selectedChallId:""
@@ -100,10 +101,11 @@ export default {
         console.log("funcSelected works!")
         const formData = {
           userOne_id: this.$store.state.user.id,
-          userTwo_id: this.info[0],
-          userThree_id: this.info[1],
+          userTwo_id: this.friendsArr[0],
+          userThree_id: this.friendsArr[1],
           challenge_id: this.selectedChallId,
-          active: true
+          active: true,
+          startTime: Date.now().toString().slice(0,10)
         }
 
           axios.post('/active_challenges', formData)
@@ -113,6 +115,10 @@ export default {
             .catch(error => console.log(error))
 
           this.dialog=!this.dialog
+      },
+      funcClose(){
+        this.dialog = false
+        this.friendsArr = []
       }
   },
   computed: {

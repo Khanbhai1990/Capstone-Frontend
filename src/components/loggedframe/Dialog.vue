@@ -13,9 +13,9 @@
             </v-radio-group>
           </v-flex>
           </v-layout>
-          <h3>{{ trackName.toUpperCase() }} {{ "tracker".toUpperCase() }}</h3>
+          <h3>{{ "tracker".toUpperCase() }}</h3>
           <v-text-field
-            :label="'##'"
+            :label="trackName"
             v-model="track"
             :counter="10"
             type="number"

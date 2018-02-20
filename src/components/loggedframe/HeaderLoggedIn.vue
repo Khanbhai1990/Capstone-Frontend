@@ -90,9 +90,6 @@
                     { icon: 'lightbulb_outline', text: 'Active List', link: 'ActiveList' },
                     { icon: 'history', text: 'My Challenges', link: 'My Challenges' },
                     { icon: 'content_copy', text: 'Create', link: 'Create'},
-                    { icon: 'settings', text: 'Settings', link: 'Active' },
-                    { icon: 'chat_bubble', text: 'Send feedback', link: 'Active' },
-                    { icon: 'help', text: 'Help', link: 'Active' },
                     { icon: 'remove_circle', text: 'LogOut', link: 'home' }
                   ]
                 }
