@@ -47,7 +47,9 @@ Also a feature involving peer review. (STRETCH)
 ## Build Setup
 
 ``` bash
-# install dependencies
+# install Vue-Cli
+npm install --global vue-cli
+# install dependencies within the directory
 npm install
 
 # serve with hot reload at localhost:8080
