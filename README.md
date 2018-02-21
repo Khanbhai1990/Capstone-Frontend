@@ -46,6 +46,7 @@ Also a feature involving peer review. (STRETCH)
 
 ## Build Setup
 
+Please make sure you have [NPM](https://www.npmjs.com/) installed.
 ``` bash
 # install Vue-Cli
 npm install --global vue-cli
