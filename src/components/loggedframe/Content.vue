@@ -22,16 +22,16 @@
                                </v-flex>
                              </v-layout>
                            </v-container>
-                           <v-btn color="blue" style="color:white" @click="add(diary).then(()=> diary = '')">Submit</v-btn>
+
                          </v-card-text>
                        </v-card>
-                        <v-btn color="green" @click.native="e6 = 2">Next</v-btn>
+                        <v-btn color="green" @click.native="e6 = 2" @click="add(diary).then(()=> diary = '')">Next</v-btn>
                   </v-stepper-content>
                   <v-stepper-step step="2" v-bind:complete="e6 > 2">Today's Summary</v-stepper-step>
                   <v-stepper-content step="2">
-                        <v-card color="grey lighten-4" class="mb-5 styled" height="200px"><h3><p>
+                        <v-card color="grey lighten-4" class="mb-5 styled" height="200px"><p style="line-height: 3; letter-spacing: 1px;">
 
-                        {{ instruct }}</p></h3></v-card>
+                        {{ instruct }}</p></v-card>
                         <v-btn color="green" @click.native="e6 = 3">Next</v-btn>
                   </v-stepper-content>
                   <v-stepper-step step="3" v-bind:complete="e6 > 3">Video of the Day</v-stepper-step>
@@ -83,7 +83,7 @@ export default {
   },
   watch : {
     e6 : function() {
-
+        console.log(this.instruct)
        if (this.e6===5){
          axios.get(`http://localhost:8000/user_rate/ranking/${this.$route.params.act_chall_id}`)
            .then(res => {
