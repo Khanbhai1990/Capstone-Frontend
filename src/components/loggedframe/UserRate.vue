@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-        <form v-model="valid" lazy-validation>
+        <form v-if="friendsData[0]" v-model="valid" lazy-validation>
           <v-layout row wrap>
           <v-flex xs12 md6>
             <h3>{{ friendsData[0].name.toUpperCase() }}</h3>

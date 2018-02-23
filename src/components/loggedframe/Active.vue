@@ -2,13 +2,13 @@
 <div class="">
   <v-app id="inspire">
 
-    <v-parallax :src="data[0].paralax" height="400"></v-parallax>
+    <v-parallax v-if="data[0]" :src="data[0].paralax" height="400"></v-parallax>
     <div class="text-xs-center">
       <v-pagination :length="10" v-model="page"></v-pagination>
-        <app-content :video="videoId" :audio="audioUrl" :instruct="data[0].instructions"></app-content>
+        <app-content v-if="data[0]" :video="videoId" :audio="audioUrl" :instruct="data[0].instructions"></app-content>
     </div>
   </v-app>
-  <app-dialog class="box" @myrate="myRate = $event" :trackName="data[0].tracker_name"></app-dialog>
+  <app-dialog v-if="data[0]" class="box" @myrate="myRate = $event" :trackName="data[0].tracker_name"></app-dialog>
 
 
 
