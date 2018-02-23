@@ -29,11 +29,11 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>
-                <div class="" v-if="item.link != 'home'" :click="logout">
+                <div class="" v-if="item.link == 'home'" @click="logout">
                   <router-link :to="{ name: item.link}" tag="li">{{ item.text }}</router-link>
                 </div>
                 <div class="">
-                  <a href="http://localhost:8080/"><li>{{ item.text }}</li></a>
+                  <router-link :to="{ name: item.link}" tag="li">{{ item.text }}</router-link>
                 </div>
               </v-list-tile-title>
             </v-list-tile-content>
@@ -94,10 +94,12 @@
                   ]
                 }
          },
-        computed: {
+        methods: {
           logout(){
+            console.log("YO")
             localStorage.removeItem("token");
             localStorage.removeItem("userData");
+            this.$store.commit("logout");
           }
         }
 

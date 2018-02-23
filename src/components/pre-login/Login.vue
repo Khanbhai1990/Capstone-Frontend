@@ -49,6 +49,14 @@
         created(){
           localStorage.removeItem("token");
           localStorage.removeItem("userData");
+          this.$auth.logout({
+            makeRequest: true,
+            params: {}, // data: {} in axios
+            success: function () {},
+            error: function () {},
+            redirect: '/login',
+            // etc...
+          });
         }
     }
 </script>

@@ -26,6 +26,10 @@ export const store = new Vuex.Store({
       },
       diary_content: (state, payload)=>{
          state.diaryData = payload
+      },
+      logout:(state, payload)=>{
+        console.log("here")
+        state.token = "";
       }
 
   },
