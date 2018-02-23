@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   data () {
     return {
@@ -44,7 +43,7 @@ export default {
   },
   methods: {
     del(id){
-        axios.delete(`http://localhost:8000/challenges/${id}`)
+        this.axios.delete(`http://localhost:8000/challenges/${id}`)
           .then(res=>{
             console.log("delete works", res.data)
             //updated triggers "watch" which inturn re render the component
@@ -55,7 +54,7 @@ export default {
   },
   watch: {
     updated: function (val){
-      axios.get(`http://localhost:8000/challenges/mychallenges/${this.$store.state.user.id}`)
+      this.axios.get(`http://localhost:8000/challenges/mychallenges/${this.$store.state.user.id}`)
         .then(res => {
           this.challenges = res.data
           console.log(res.data)
@@ -64,7 +63,7 @@ export default {
     }
   },
   created () {
-    axios.get(`http://localhost:8000/challenges/mychallenges/${this.$store.state.user.id}`)
+    this.axios.get(`http://localhost:8000/challenges/mychallenges/${this.$store.state.user.id}`)
       .then(res => {
         this.challenges = res.data
         console.log(res.data)

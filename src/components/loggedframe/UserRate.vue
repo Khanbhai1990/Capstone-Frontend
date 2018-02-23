@@ -27,8 +27,6 @@
 </template>
 
 <script>
-
-import axios from 'axios';
 export default {
       data () {
         return {
@@ -62,13 +60,13 @@ export default {
 
             console.log("bitch is validated")
             // Native form submission is not yet supported
-            axios.post('/user_rate', formDataOne)
+            this.axios.post('/user_rate', formDataOne)
               .then(res => {
                 console.log("this is the response from userOne", res)
               })
               .catch(error => console.log(error))
 
-              axios.post('/user_rate', formDataTwo)
+              this.axios.post('/user_rate', formDataTwo)
                 .then(res => {
                   console.log("this is the response from userTwo", res)
                 })

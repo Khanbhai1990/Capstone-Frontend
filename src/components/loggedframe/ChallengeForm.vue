@@ -49,7 +49,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
     export default {
         data (){
           return {
@@ -94,7 +93,7 @@
             }
             if (this.$refs.form.validate()) {
               // Native form submission is not yet supported
-              axios.post('/challenges', formData)
+              this.axios.post('/challenges', formData)
                 .then(res => {
                   console.log("this is the response", res.data[res.data.length-1].id)
                   this.theChallenge = res.data[res.data.length-1].id

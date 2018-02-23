@@ -55,7 +55,6 @@
 
 <script>
 import ChallengeForm from './ChallengeForm';
-import axios from 'axios';
 export default {
     data (){
       return {
@@ -99,14 +98,14 @@ export default {
         if (this.$refs.form.validate()) {
           // Native form submission is not yet supported
           if(this.trackerObj[this.page.toString()]){
-            axios.patch(`/features/${this.trackerObj[this.page.toString()]}`, formData)
+            this.axios.patch(`/features/${this.trackerObj[this.page.toString()]}`, formData)
               .then(res =>{
                 console.log("this is patch", res)
                 this.page++
               })
               .catch(error => console.log(error))
           } else{
-            axios.post('/features', formData)
+            this.axios.post('/features', formData)
               .then(res => {
                 console.log("this is the response from features", res, this.page)
                 this.trackerObj[this.page.toString()] = res.data[this.page-1].id

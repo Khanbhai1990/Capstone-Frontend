@@ -8,8 +8,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
   export default {
     data () {
       return {
@@ -26,7 +24,7 @@
               name: this.name
             }
             console.log(formData)
-          axios.post('/auth/signup', formData)
+          this.axios.post('/auth/signup', formData)
             .then(res => console.log(res) )
             .catch(error => console.log(error))
           this.$router.push('/')

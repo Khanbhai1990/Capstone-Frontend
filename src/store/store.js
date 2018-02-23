@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import VueMediaEmbed from 'vue-media-embed'
+import createPersistedState from 'vuex-persistedstate'
 
 // import * as actions from './actions';
 // import * as mutations from './mutations';
@@ -42,7 +43,8 @@ export const store = new Vuex.Store({
   getters: {
     ...getters
 
-   }
+  },
+  // plugins: [createPersistedState()]
         // getters: {
         //     user (state) {
         //         return state.user

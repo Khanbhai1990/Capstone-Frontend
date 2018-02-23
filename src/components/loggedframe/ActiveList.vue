@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+
 export default {
   data () {
     return {
@@ -45,7 +45,7 @@ export default {
       const formData = {
         active: false,
       }
-        axios.patch(`http://localhost:8000/active_challenges/${id}`, formData)
+        this.axios.patch(`http://localhost:8000/active_challenges/${id}`, formData)
           .then(res=>{
             console.log("patch works", res.data)
             //updated triggers "watch" which inturn re render the component
@@ -55,7 +55,7 @@ export default {
   },
   watch: {
     updated: function (val){
-      axios.get(`http://localhost:8000/active_challenges/user_chall/${this.$store.state.user.id}`)
+      this.axios.get(`http://localhost:8000/active_challenges/user_chall/${this.$store.state.user.id}`)
         .then(res => {
           this.challenges = res.data.filter(challenge =>{
             return challenge.active === true
@@ -66,7 +66,7 @@ export default {
     }
   },
   created () {
-    axios.get(`http://localhost:8000/active_challenges/user_chall/${this.$store.state.user.id}`)
+    this.axios.get(`http://localhost:8000/active_challenges/user_chall/${this.$store.state.user.id}`)
       .then(res => {
         this.challenges = res.data.filter(challenge =>{
           return challenge.active === true

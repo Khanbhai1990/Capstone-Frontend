@@ -20,10 +20,11 @@ import '../node_modules/vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify);
 
 Vue.use(VueAxios, axios)
+Vue.axios.defaults.baseURL = 'http://localhost:8000'
+
 
 Vue.use(VueYouTubeEmbed)
 
-Vue.axios.defaults.baseURL = 'http://localhost:8000'
 
 Vue.config.productionTip = false
 Vue.router = router

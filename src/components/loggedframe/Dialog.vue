@@ -29,7 +29,6 @@
 
 <script>
 // import {mapGetters} from 'vuex';
-import axios from "axios"
 export default {
     data () {
         return {
@@ -51,7 +50,7 @@ export default {
             self_rate: this.rowOne,
             tracker: this.track
           }
-          axios.post('/user_input', formData)
+          this.axios.post('/user_input', formData)
             .then(res => {
               console.log("this is the response from features", res)
             })

@@ -79,7 +79,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   data () {
     return {
@@ -108,7 +107,7 @@ export default {
           startTime: Date.now().toString().slice(0,10)
         }
 
-          axios.post('/active_challenges', formData)
+          this.axios.post('/active_challenges', formData)
             .then(res => {
               console.log("this is the response from features", res)
             })
@@ -131,14 +130,14 @@ export default {
 
   },
   created () {
-    axios.get(`http://localhost:8000/challenges`)
+    this.axios.get(`http://localhost:8000/challenges`)
       .then(res => {
         this.challenges = res.data
         console.log(res.data)
       })
       .catch(error => console.log(error))
 
-    axios.get('http://localhost:8000/auth/users')
+    this.axios.get('http://localhost:8000/auth/users')
       .then(res => {
         this.usersData = res.data.filter(user =>{
           return user.id !== this.$store.state.user.id
