@@ -47,6 +47,9 @@
             appLoginForm: LoginForm
         },
         created(){
+          if (!!localStorage.getItem("token")){
+            this.$router.push('/search')
+          }
           localStorage.removeItem("token");
           localStorage.removeItem("userData");
           this.$auth.logout({
@@ -54,7 +57,7 @@
             params: {}, // data: {} in axios
             success: function () {},
             error: function () {},
-            redirect: '/login',
+            redirect: '/',
             // etc...
           });
         }

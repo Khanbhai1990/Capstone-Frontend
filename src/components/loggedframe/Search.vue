@@ -114,6 +114,8 @@ export default {
             .catch(error => console.log(error))
 
           this.dialog=!this.dialog
+          this.friendsArr = []
+
       },
       funcClose(){
         this.dialog = false
