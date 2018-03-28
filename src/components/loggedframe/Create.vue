@@ -126,7 +126,7 @@ export default {
     watch: {
       page : function() {
         if (this.trackerObj[this.page.toString()]){
-        this.axios.get(`http://localhost:8000/features/${this.trackerObj[this.page.toString()]}`)
+        this.axios.get(`/features/${this.trackerObj[this.page.toString()]}`)
           .then(res => {
             this.youtube = res.data[0].video
             this.instructions = res.data[0].instructions

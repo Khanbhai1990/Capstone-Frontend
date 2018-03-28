@@ -90,14 +90,8 @@ export default {
   },
   watch : {
     e6 : function() {
-<<<<<<< HEAD
-        console.log(this.instruct)
-       if (this.e6===5){
-         this.axios.get(`/user_rate/ranking/${this.$route.params.act_chall_id}`)
-=======
        if (this.e6===4 ){
-         this.axios.get(`http://localhost:8000/user_rate/ranking/${this.$route.params.act_chall_id}`)
->>>>>>> 9e6141f7f5b7b26843477280a4dc8924fdf8ab70
+         this.axios.get(`/user_rate/ranking/${this.$route.params.act_chall_id}`)
            .then(res => {
              this.friendsData = res.data.filter(user =>{
                 return user.name !== this.$store.state.user.name
@@ -105,7 +99,7 @@ export default {
              console.log("this is friends data", this.friendsData)
            })
            .catch(error => console.log(error))
-         this.axios.get(`http://localhost:8000/user_rate/check/${this.$route.params.act_chall_id}/${this.$store.state.user.id}/${this.day}`)
+         this.axios.get(`/user_rate/check/${this.$route.params.act_chall_id}/${this.$store.state.user.id}/${this.day}`)
             .then(res => {
              console.log("this is user rate data", !!res.data.length)
              if (!!res.data.length){

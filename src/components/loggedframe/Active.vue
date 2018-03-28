@@ -1,7 +1,6 @@
 <template lang="html">
 <div class="">
   <v-app id="inspire">
-
     <v-parallax v-if="data[0]" :src="data[0].paralax" height="400"></v-parallax>
     <div class="text-xs-center">
       <v-pagination :length="10" v-model="page"></v-pagination>
@@ -9,9 +8,6 @@
     </div>
   </v-app>
   <app-dialog v-if="data[0]" class="box" @myrate="myRate = $event" :trackName="data[0].tracker_name" :self_rate="inputData.self_rate" :tracker_value="inputData.tracker" :day="page"></app-dialog>
-
-
-
 </div>
 </template>
 
@@ -37,15 +33,7 @@ export default {
     },
     watch: {
       page: function(){
-<<<<<<< HEAD
-        if(this.page>this.fil){
-          alert(`content for day ${this.page} will be available when the time is right :-) (access to the next day will be permitted after 24 hours)`)
-          this.page = this.fil
-        }
         this.axios.get(`/active_challenges/complete/${this.$route.params.chall_id}/${this.page}/${this.$route.params.act_chall_id}`)
-=======
-        this.axios.get(`http://localhost:8000/active_challenges/complete/${this.$route.params.chall_id}/${this.page}/${this.$route.params.act_chall_id}`)
->>>>>>> 9e6141f7f5b7b26843477280a4dc8924fdf8ab70
           .then(res => {
             this.data = res.data
             this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
@@ -58,50 +46,31 @@ export default {
           })
           .catch(error => console.log(error))
 
-        this.axios.get(`http://localhost:8000/user_input/${this.$route.params.act_chall_id}/${this.$store.state.user.id}/${this.page}`)
+        this.axios.get(`/user_input/${this.$route.params.act_chall_id}/${this.$store.state.user.id}/${this.page}`)
             .then(res => {
               if (res.data[0]){
               this.inputData = res.data[0]
             } else {
               this.inputData = {diary:"", tracker: "", self_rate:null}
             }
-
-            })
-            .catch(error => console.log(error))
-
+          }).catch(error => console.log(error))
       }
     },
     created () {
-<<<<<<< HEAD
-      this.axios.get(`/active_challenges/complete/${this.$route.params.chall_id}/${this.page}/${this.$route.params.act_chall_id}`)
-        .then(res => {
-          this.data = res.data
-          this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
-          this.audioUrl = res.data[0].audio
-          this.fil = 10 - this.days.filter(num => num > Date.now().toString().slice(0,10)-res.data[0].startTime).length;
+        this.axios.get(`/active_challenges/complete/${this.$route.params.chall_id}/${this.page}/${this.$route.params.act_chall_id}`)
+          .then(res => {
+            this.data = res.data
+            this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
+            this.audioUrl = res.data[0].audio
+            this.fil = 10 - this.days.filter(num => num > Date.now().toString().slice(0,10)-res.data[0].startTime).length;
+          }).catch(error => console.log(error))
 
-        })
-        .catch(error => console.log(error))
-=======
-        this.axios.get(`http://localhost:8000/active_challenges/complete/${this.$route.params.chall_id}/${this.page}/${this.$route.params.act_chall_id}`)
-            .then(res => {
-              this.data = res.data
-              this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
-              this.audioUrl = res.data[0].audio
-              this.fil = 10 - this.days.filter(num => num > Date.now().toString().slice(0,10)-res.data[0].startTime).length;
-
-            })
-            .catch(error => console.log(error))
-
-        this.axios.get(`http://localhost:8000/user_input/${this.$route.params.act_chall_id}/${this.$store.state.user.id}/${this.page}`)
-            .then(res => {
-              if (res.data[0]){
-              this.inputData = res.data[0]
-            }
-
-            })
-            .catch(error => console.log(error))
->>>>>>> 9e6141f7f5b7b26843477280a4dc8924fdf8ab70
+        this.axios.get(`/user_input/${this.$route.params.act_chall_id}/${this.$store.state.user.id}/${this.page}`)
+          .then(res => {
+            if (res.data[0]){
+            this.inputData = res.data[0]
+          }
+        }).catch(error => console.log(error))
 
       if (!this.$auth.check()) {
         this.$router.push('/')
