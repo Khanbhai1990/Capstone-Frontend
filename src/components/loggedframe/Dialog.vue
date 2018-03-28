@@ -7,7 +7,7 @@
             <v-radio-group v-model="rowOne" row>
               <div v-for="number in numbers">
                 <div class="radioclass">
-                    <v-radio :label="number" :value="number"></v-radio>
+                    <v-radio :label="number" :value="number" :disabled="valid"></v-radio>
                 </div>
               </div>
             </v-radio-group>
@@ -15,12 +15,13 @@
           </v-layout>
           <h3>{{ "tracker".toUpperCase() }}</h3>
           <v-text-field
-            :label="trackName"
+            :label="tracker_value.toString() || trackName"
             v-model="track"
             :counter="10"
             type="number"
+            :disabled="valid"
           ></v-text-field>
-          <v-btn @click="rateSubmit" color="primary" :disabled="!valid">submit</v-btn>
+          <v-btn @click="rateSubmit" color="primary" :disabled="valid">submit</v-btn>
           <v-btn @click="clear" color="yellow">clear</v-btn>
         </form>
   </div>
@@ -39,20 +40,23 @@ export default {
           track:null
         }
     },
-    props: ["trackName"],
+    props: ["trackName", "tracker_value", "self_rate", "day"],
     methods:{
       rateSubmit () {
+          this.valid = true
           const formData = {
             user_id: this.$store.state.user.id,
             active_challenge_id: this.$route.params.act_chall_id,
             diary: this.$store.state.diaryData,
-            day_input: this.$route.params.day,
+            day_input: this.day,
             self_rate: this.rowOne,
             tracker: this.track
           }
           this.axios.post('/user_input', formData)
             .then(res => {
               console.log("this is the response from features", res)
+              this.track = null
+              this.rowOne = null
             })
             .catch(error => console.log(error))
       },
@@ -65,7 +69,22 @@ export default {
         // this.$emit('myrate', this.rowOne);
 
       },
+      watch: {
+        tracker_value: function (){
+          if(!this.tracker_value){
+          this.valid = false
+        } else {
+          this.valid = true
+        }
+        }
+      },
       created (){
+        if(!this.tracker_value){
+
+            this.valid = false
+        } else {
+            this.valid = true
+        }
         if (!this.$auth.check()) {
           this.$router.push('/')
         }

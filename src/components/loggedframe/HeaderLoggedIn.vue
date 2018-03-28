@@ -96,7 +96,6 @@
          },
         methods: {
           logout(){
-            console.log("YO")
             localStorage.removeItem("token");
             localStorage.removeItem("userData");
             this.$store.commit("logout");

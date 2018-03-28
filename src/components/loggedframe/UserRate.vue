@@ -39,7 +39,7 @@ export default {
 
         }
       },
-      props:["friendsData"],
+      props:["friendsData", "day"],
       methods: {
         submit () {
           console.log("this is the data", this.rowOne, this.rowTwo, this.$route.params.act_chall_id)
@@ -47,30 +47,30 @@ export default {
             user_id: this.$store.state.user.id,
             friend_id: this.friendsData[0].id,
             active_challenge_id: this.$route.params.act_chall_id,
-            day_rate: this.$route.params.day,
+            day_rate: this.day,
             rating: this.rowOne
           }
           const formDataTwo = {
             user_id: this.$store.state.user.id,
             friend_id: this.friendsData[1].id,
             active_challenge_id: this.$route.params.act_chall_id,
-            day_rate: this.$route.params.day,
+            day_rate: this.day,
             rating: this.rowTwo
           }
 
-            console.log("bitch is validated")
+
             // Native form submission is not yet supported
             this.axios.post('/user_rate', formDataOne)
               .then(res => {
-                console.log("this is the response from userOne", res)
+                this.rowOne = null
               })
               .catch(error => console.log(error))
 
-              this.axios.post('/user_rate', formDataTwo)
-                .then(res => {
-                  console.log("this is the response from userTwo", res)
-                })
-                .catch(error => console.log(error))
+            this.axios.post('/user_rate', formDataTwo)
+              .then(res => {
+                this.rowTwo = null
+              })
+              .catch(error => console.log(error))
         },
         clear () {
           this.rowOne = null
