@@ -40,7 +40,7 @@ export default {
           alert(`content for day ${this.page} will be available when the time is right :-) (access to the next day will be permitted after 24 hours)`)
           this.page = this.fil
         }
-        this.axios.get(`http://localhost:8000/active_challenges/complete/${this.$route.params.chall_id}/${this.page}/${this.$route.params.act_chall_id}`)
+        this.axios.get(`/active_challenges/complete/${this.$route.params.chall_id}/${this.page}/${this.$route.params.act_chall_id}`)
           .then(res => {
             this.data = res.data
             this.videoId = this.$youtube.getIdFromURL(res.data[0].video)
@@ -49,7 +49,7 @@ export default {
       }
     },
     created () {
-      this.axios.get(`http://localhost:8000/active_challenges/complete/${this.$route.params.chall_id}/${this.page}/${this.$route.params.act_chall_id}`)
+      this.axios.get(`/active_challenges/complete/${this.$route.params.chall_id}/${this.page}/${this.$route.params.act_chall_id}`)
         .then(res => {
           this.data = res.data
           this.videoId = this.$youtube.getIdFromURL(res.data[0].video)

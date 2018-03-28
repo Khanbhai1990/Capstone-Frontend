@@ -84,7 +84,7 @@ export default {
     e6 : function() {
         console.log(this.instruct)
        if (this.e6===5){
-         this.axios.get(`http://localhost:8000/user_rate/ranking/${this.$route.params.act_chall_id}`)
+         this.axios.get(`/user_rate/ranking/${this.$route.params.act_chall_id}`)
            .then(res => {
              this.friendsData = res.data.filter(user =>{
                 return user.name !== this.$store.state.user.name

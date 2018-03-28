@@ -8,23 +8,18 @@ import VueYouTubeEmbed from 'vue-youtube-embed'
 import Chartkick from 'chartkick'
 import VueChartkick from 'vue-chartkick'
 
-
 Vue.use(VueChartkick, { Chartkick })
 
 import router from './router'
 
 import '../node_modules/vuetify/dist/vuetify.min.css'
 
-
-
 Vue.use(Vuetify);
 
 Vue.use(VueAxios, axios)
-Vue.axios.defaults.baseURL = 'http://localhost:8000'
-
+Vue.axios.defaults.baseURL = 'http://capstone-backend'
 
 Vue.use(VueYouTubeEmbed)
-
 
 Vue.config.productionTip = false
 Vue.router = router
@@ -38,7 +33,6 @@ Vue.router = router
 //   console.log("this is response from interceptors", res)
 //   return res
 // })
-
 
 Vue.use(require('@websanova/vue-auth'), {
   auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
