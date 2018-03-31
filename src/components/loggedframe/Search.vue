@@ -114,6 +114,8 @@ export default {
             .catch(error => console.log(error))
 
           this.dialog=!this.dialog
+          this.friendsArr = []
+
       },
       funcClose(){
         this.dialog = false
@@ -130,14 +132,14 @@ export default {
 
   },
   created () {
-    this.axios.get(`http://localhost:8000/challenges`)
+    this.axios.get(`/challenges`)
       .then(res => {
         this.challenges = res.data
         console.log(res.data)
       })
       .catch(error => console.log(error))
 
-    this.axios.get('http://localhost:8000/auth/users')
+    this.axios.get('/auth/users')
       .then(res => {
         this.usersData = res.data.filter(user =>{
           return user.id !== this.$store.state.user.id

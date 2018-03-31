@@ -13,11 +13,10 @@
           required
         ></v-text-field>
     <v-btn @click="onSubmit">Login</v-btn>
-    <a href="http://localhost:8080/signup">Register</a>
+    <a href="/signup">Register</a>
   </form>
   <span v-if="errMsg">Invalid login details</span>
   </div>
-
 </template>
 
 <script>

@@ -95,10 +95,10 @@ export default {
           image: this.image,
           instructions: this.instructions
         }
-        if (this.$refs.form.validate()) {
           // Native form submission is not yet supported
+
           if(this.trackerObj[this.page.toString()]){
-            this.axios.patch(`/features/${this.trackerObj[this.page.toString()]}`, formData)
+            this.axios.patch(`/features/${this.trackerObj[this.page.toString()]}/${this.page.toString()}`, formData)
               .then(res =>{
                 console.log("this is patch", res)
                 this.page++
@@ -107,18 +107,15 @@ export default {
           } else{
             this.axios.post('/features', formData)
               .then(res => {
-                console.log("this is the response from features", res, this.page)
-                this.trackerObj[this.page.toString()] = res.data[this.page-1].id
-                this.page++
+                console.log("this is the response from features", res.data[0], this.page)
+                this.trackerObj[this.page.toString()] = res.data[0].id
                 console.log("this is the obj", this.trackerObj)
+                this.page++
               })
               .catch(error => console.log(error))
-          }
-
-
-
 
         }
+
         this.$refs.form.reset()
 
       },
@@ -126,7 +123,27 @@ export default {
         this.$refs.form.reset()
       }
     },
-      created () {
+    watch: {
+      page : function() {
+        if (this.trackerObj[this.page.toString()]){
+        this.axios.get(`/features/${this.trackerObj[this.page.toString()]}`)
+          .then(res => {
+            this.youtube = res.data[0].video
+            this.instructions = res.data[0].instructions
+            this.soundCloud = res.data[0].audio
+            this.image = res.data[0].image
+          })
+          .catch(error => console.log(error))
+        } else {
+          this.youtube = ''
+          this.instructions = ''
+          this.soundCloud = ''
+          this.image = ''
+        }
+
+      }
+    },
+    created () {
         if (!this.$auth.check()) {
           this.$router.push('/')
         }

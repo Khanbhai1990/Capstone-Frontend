@@ -2,13 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Login from '../components/pre-login/Login';
-import SignUp from '../components/pre-login/SignUp'
+import SignUp from '../components/pre-login/Signup'
 import Search from '../components/loggedframe/Search'
 import ActiveList from '../components/loggedframe/ActiveList'
 import Active from '../components/loggedframe/Active'
 import Create from '../components/loggedframe/Create'
 import MyChallenges from '../components/loggedframe/MyChallenges'
-
 
 Vue.use(Router)
 

@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     del(id){
-        this.axios.delete(`http://localhost:8000/challenges/${id}`)
+        this.axios.delete(`/challenges/${id}`)
           .then(res=>{
             console.log("delete works", res.data)
             //updated triggers "watch" which inturn re render the component
@@ -54,7 +54,7 @@ export default {
   },
   watch: {
     updated: function (val){
-      this.axios.get(`http://localhost:8000/challenges/mychallenges/${this.$store.state.user.id}`)
+      this.axios.get(`/challenges/mychallenges/${this.$store.state.user.id}`)
         .then(res => {
           this.challenges = res.data
           console.log(res.data)
@@ -63,7 +63,7 @@ export default {
     }
   },
   created () {
-    this.axios.get(`http://localhost:8000/challenges/mychallenges/${this.$store.state.user.id}`)
+    this.axios.get(`/challenges/mychallenges/${this.$store.state.user.id}`)
       .then(res => {
         this.challenges = res.data
         console.log(res.data)
