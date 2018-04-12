@@ -8,3 +8,5 @@ COPY ./package.json /Capstone-Frontend/
 WORKDIR /Capstone-Frontend
 
 RUN npm i -g http-server
+
+CMD ["npm", "run", "serve"]
