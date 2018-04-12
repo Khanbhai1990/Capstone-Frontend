@@ -1,1 +1,12 @@
-
+version: '3'
+services:
+  capstone-backend:
+    # modify according to backend repo
+    
+  capstone-frontend:
+    build:
+      context: .
+    ports:
+      - 8000:80
+    depends_on:
+      - capstone-backend
